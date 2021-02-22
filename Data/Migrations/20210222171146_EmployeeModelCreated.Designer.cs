@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TrashCollector.Data;
 
 namespace TrashCollector.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210222171146_EmployeeModelCreated")]
+    partial class EmployeeModelCreated
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,24 +50,10 @@ namespace TrashCollector.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "45de571b-057a-4f50-b6c6-8cf02c7d2d11",
-                            ConcurrencyStamp = "ecd54292-d2d1-44c4-86e0-21af966390ab",
+                            Id = "8235db8e-6004-4f5e-9c1c-09f10896da56",
+                            ConcurrencyStamp = "e7f53a8b-0e6e-4382-a298-d4c22dabd9e1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = "c309d159-88ac-4a2c-a340-da6ac28b53b3",
-                            ConcurrencyStamp = "b1621c06-9846-4592-a3a1-277784e530c6",
-                            Name = "Employee",
-                            NormalizedName = "EMPLOYEE"
-                        },
-                        new
-                        {
-                            Id = "afe7fb33-cee9-4619-822c-ea584fa18fb2",
-                            ConcurrencyStamp = "8ded52d4-2a8d-4aa5-999f-58727de224b0",
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
                         });
                 });
 
