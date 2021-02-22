@@ -35,7 +35,7 @@ namespace TrashCollector.Controllers
                 return NotFound();
             }
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer =  _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
             if (customer == null)
             {
                 return NotFound();

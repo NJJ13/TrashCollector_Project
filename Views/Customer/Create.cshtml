@@ -24,8 +24,24 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdentityUserId" class="control-label"></label>
-                <select asp-for="IdentityUserId" class ="form-control" asp-items="ViewBag.IdentityUserId"></select>
+                <label asp-for="Address" class="control-label"></label>
+                <input asp-for="Address" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="State" class="control-label"></label>
+                <select asp-for="State" class="form-control" asp-items="ViewBag.State"></select>
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Zip" class="control-label"></label>
+                <input asp-for="Zip" class="form-control" />
+                <span asp-validation-for="Zip" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="WeeklyPickupDate" class="control-label"></label>
+                <select asp-for="WeeklyPickupDate" class="form-control" asp-items="ViewBag.WeeklyPickupDate"></select>
+                <span asp-validation-for="WeeklyPickupDate" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
