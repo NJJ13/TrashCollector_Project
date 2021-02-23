@@ -10,8 +10,8 @@ using TrashCollector.Data;
 namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210223163511_UpdatedCustomerControllers")]
-    partial class UpdatedCustomerControllers
+    [Migration("20210223171901_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7bbb1ec5-a730-4ce3-9a1b-c25ad0192d0d",
-                            ConcurrencyStamp = "c1cb940c-9784-4880-8115-868f9e008d73",
+                            Id = "71995cd3-20d0-4b10-baa2-cfa573c95fb6",
+                            ConcurrencyStamp = "347d9af0-a2b7-4127-886c-fad9c05d69d1",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "da393232-edf7-492e-9173-c6945b97780a",
-                            ConcurrencyStamp = "8dc1e100-c0c7-4c81-b8c0-382197835599",
+                            Id = "e1523b5a-fa9d-4506-b3da-0e0e405f65ba",
+                            ConcurrencyStamp = "09ffcafc-cdce-4211-aa3b-60498eb6030d",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "7b8d9635-071f-4b3d-ae85-e65db9da2cb0",
-                            ConcurrencyStamp = "8eaebbd6-9164-49f1-84ab-6337ece69296",
+                            Id = "8adf87f1-3274-4196-9f88-79becfeafe39",
+                            ConcurrencyStamp = "e1268a0c-5776-469a-9f91-4cc70c73aa00",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -280,7 +280,7 @@ namespace TrashCollector.Migrations
                     b.Property<string>("WeeklyPickupDay")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Zip")
+                    b.Property<double>("Zipcode")
                         .HasColumnType("float");
 
                     b.HasKey("CustomerID");

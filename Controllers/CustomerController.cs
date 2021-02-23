@@ -104,7 +104,7 @@ namespace TrashCollector.Controllers
                     customerToEdit.Address = customer.Address;
                     customerToEdit.City = customer.City;
                     customerToEdit.State = customer.State;
-                    customerToEdit.Zip = customer.Zip;
+                    customerToEdit.Zipcode = customer.Zipcode;
                     _context.Update(customerToEdit);
                     await _context.SaveChangesAsync();
                 }
