@@ -5,10 +5,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Welcome</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Set Up Collection Services</a>
 </p>
 <table class="table">
     <thead>
@@ -24,9 +24,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.MonthlyDues)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdditionalPickUp)
             </th>
             <th></th>
         </tr>
@@ -47,12 +44,10 @@
                 @Html.DisplayFor(modelItem => item.MonthlyDues)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.AdditionalPickUp)
-            </td>
-            <td>
                 <a asp-action="Edit" asp-route-id="@item.CustomerID">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.CustomerID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.CustomerID">Delete</a>
+                <a asp-action="AdditionalServices" asp-route-id="@item.CustomerID">Additional Services</a> |
+                <a asp-action="Delete" asp-route-id="@item.CustomerID">Cancel Services</a>
             </td>
         </tr>
 }
