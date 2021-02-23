@@ -56,7 +56,7 @@ namespace TrashCollector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CustomerID,FirstName,LastName,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Create(Customer customer)
         {
             if (ModelState.IsValid)
             {
@@ -86,24 +86,74 @@ namespace TrashCollector.Controllers
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
             return View(customer);
         }
-
+       
         // POST: Customer/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for 
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("CustomerID,FirstName,LastName,IdentityUserId")] Customer customer)
+        public async Task<IActionResult> Edit(int Id, Customer customer)
         {
-            if (id != customer.CustomerID)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(customer);
+                    Customer customerToEdit = _context.Customers.Find(Id);
+                    customerToEdit.FirstName = customer.FirstName;
+                    customerToEdit.LastName = customer.LastName;
+                    customerToEdit.Address = customer.Address;
+                    customerToEdit.City = customer.City;
+                    customerToEdit.State = customer.State;
+                    customerToEdit.Zip = customer.Zip;
+                    _context.Update(customerToEdit);
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!CustomerExists(customer.CustomerID))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            return View(customer);
+        }
+        public async Task<IActionResult> AdditionalServices(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var customer = await _context.Customers.FindAsync(id);
+            if (customer == null)
+            {
+                return NotFound();
+            }
+            ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", customer.IdentityUserId);
+            return View(customer);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdditionalServices(int Id, Customer customer)
+        {
+            
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    Customer customerToEdit = _context.Customers.Find(Id);
+                    customerToEdit.SuspendPickUpStart = customer.SuspendPickUpStart;
+                    customerToEdit.SuspendPickUpEnd = customer.SuspendPickUpEnd;
+                    customerToEdit.AdditionalPickUp = customer.AdditionalPickUp;
+                    _context.Update(customerToEdit);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)

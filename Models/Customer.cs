@@ -20,9 +20,9 @@ namespace TrashCollector.Models
         public string State { get; set; }
         public double Zip { get; set; }
         public string WeeklyPickupDay { get; set; }
-        public DateTime AdditionalPickUp { get; set; }
-        public DateTime SuspendPickUpStart { get; set; }
-        public DateTime SuspendPickUpEnd { get; set; }
+        public DateTime? AdditionalPickUp { get; set; }
+        public DateTime? SuspendPickUpStart { get; set; }
+        public DateTime? SuspendPickUpEnd { get; set; }
         public double MonthlyDues { get; set; }
 
 
