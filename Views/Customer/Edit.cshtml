@@ -29,6 +29,11 @@
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="State" class="control-label"></label>
                 <select asp-for="State" class="form-control" asp-items="ViewBag.State"></select>
                 <span asp-validation-for="LastName" class="text-danger"></span>
@@ -39,9 +44,24 @@
                 <span asp-validation-for="Zip" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="WeeklyPickupDate" class="control-label"></label>
-                <select asp-for="WeeklyPickupDate" class="form-control" asp-items="ViewBag.WeeklyPickupDate"></select>
-                <span asp-validation-for="WeeklyPickupDate" class="text-danger"></span>
+                <label asp-for="WeeklyPickupDay" class="control-label"></label>
+                <select asp-for="WeeklyPickupDay" class="form-control" asp-items="ViewBag.WeeklyPickupDate"></select>
+                <span asp-validation-for="WeeklyPickupDay" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AdditionalPickUp" class="control-label"></label>
+                <select asp-for="AdditionalPickUp" class="form-control" asp-items="ViewBag.WeeklyPickupDate"></select>
+                <span asp-validation-for="AdditionalPickUp" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SuspendPickUpStart" class="control-label"></label>
+                <select asp-for="SuspendPickUpStart" class="form-control" asp-items="ViewBag.WeeklyPickupDate"></select>
+                <span asp-validation-for="SuspendPickUpStart" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SuspendPickUpEnd" class="control-label"></label>
+                <select asp-for="SuspendPickUpEnd" class="form-control" asp-items="ViewBag.WeeklyPickupDate"></select>
+                <span asp-validation-for="WeeklyPickupDay" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

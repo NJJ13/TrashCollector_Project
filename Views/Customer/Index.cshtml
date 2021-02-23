@@ -20,16 +20,13 @@
                 @Html.DisplayNameFor(model => model.LastName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Address)
+                @Html.DisplayNameFor(model => model.WeeklyPickupDay)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.State)
+                @Html.DisplayNameFor(model => model.MonthlyDues)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Zip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.WeeklyPickupDate)
+                @Html.DisplayNameFor(model => model.AdditionalPickUp)
             </th>
             <th></th>
         </tr>
@@ -44,16 +41,13 @@
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Address)
+                @Html.DisplayFor(modelItem => item.WeeklyPickupDay)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.State)
+                @Html.DisplayFor(modelItem => item.MonthlyDues)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Zip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.WeeklyPickupDate)
+                @Html.DisplayFor(modelItem => item.AdditionalPickUp)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.CustomerID">Edit</a> |
