@@ -47,6 +47,22 @@ namespace TrashCollector.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PickUpTrackers",
+                columns: table => new
+                {
+                    PickUpTrackingId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    MonthStart = table.Column<DateTime>(nullable: false),
+                    MonthEnd = table.Column<DateTime>(nullable: false),
+                    ScheduledPickUpThisMonth = table.Column<int>(nullable: false),
+                    CustomerID = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PickUpTrackers", x => x.PickUpTrackingId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -165,6 +181,7 @@ namespace TrashCollector.Migrations
                     State = table.Column<string>(nullable: true),
                     Zipcode = table.Column<double>(nullable: false),
                     WeeklyPickupDay = table.Column<string>(nullable: true),
+                    ServicesStart = table.Column<DateTime>(nullable: true),
                     AdditionalPickUp = table.Column<DateTime>(nullable: true),
                     SuspendPickUpStart = table.Column<DateTime>(nullable: true),
                     SuspendPickUpEnd = table.Column<DateTime>(nullable: true),
@@ -207,17 +224,17 @@ namespace TrashCollector.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "60c79807-13da-448c-92c1-cff58bcb6861", "b01c55b0-b773-476a-a346-d57d4281f4a9", "Admin", "ADMIN" });
+                values: new object[] { "6916d5d5-d68f-4dbc-9899-0fd34b28cd5c", "0b79ed90-c72b-4736-a311-d6ebb2b7869e", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "8ecacf25-8a1b-49c2-a2bc-8ff3e1f65f58", "1f3544e9-4753-4ecf-8723-f76043f7de3e", "Employee", "EMPLOYEE" });
+                values: new object[] { "03d45c72-3617-4ea1-9362-fd4183023409", "e9bc430e-0be5-430b-b855-e529061f6f1c", "Employee", "EMPLOYEE" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "64c06fdd-62bd-43d3-8c2d-b13db08f96a7", "ac6b3458-e4c5-46dd-a7ff-115b8522016a", "Customer", "CUSTOMER" });
+                values: new object[] { "d61b03aa-fe6b-4f22-9586-f0ca0e9728e4", "f147e536-074c-4b1d-a313-82a6a5e35fe3", "Customer", "CUSTOMER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -291,6 +308,9 @@ namespace TrashCollector.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "PickUpTrackers");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

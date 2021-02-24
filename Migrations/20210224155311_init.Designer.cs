@@ -10,7 +10,7 @@ using TrashCollector.Data;
 namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210223201827_init")]
+    [Migration("20210224155311_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,22 +50,22 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "60c79807-13da-448c-92c1-cff58bcb6861",
-                            ConcurrencyStamp = "b01c55b0-b773-476a-a346-d57d4281f4a9",
+                            Id = "6916d5d5-d68f-4dbc-9899-0fd34b28cd5c",
+                            ConcurrencyStamp = "0b79ed90-c72b-4736-a311-d6ebb2b7869e",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "8ecacf25-8a1b-49c2-a2bc-8ff3e1f65f58",
-                            ConcurrencyStamp = "1f3544e9-4753-4ecf-8723-f76043f7de3e",
+                            Id = "03d45c72-3617-4ea1-9362-fd4183023409",
+                            ConcurrencyStamp = "e9bc430e-0be5-430b-b855-e529061f6f1c",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "64c06fdd-62bd-43d3-8c2d-b13db08f96a7",
-                            ConcurrencyStamp = "ac6b3458-e4c5-46dd-a7ff-115b8522016a",
+                            Id = "d61b03aa-fe6b-4f22-9586-f0ca0e9728e4",
+                            ConcurrencyStamp = "f147e536-074c-4b1d-a313-82a6a5e35fe3",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -268,6 +268,9 @@ namespace TrashCollector.Migrations
                     b.Property<double>("MonthlyDues")
                         .HasColumnType("float");
 
+                    b.Property<DateTime?>("ServicesStart")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
 
@@ -314,6 +317,30 @@ namespace TrashCollector.Migrations
                     b.HasIndex("IdentityUserId");
 
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("TrashCollector.Models.PickUpTracker", b =>
+                {
+                    b.Property<int>("PickUpTrackingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CustomerID")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("MonthEnd")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("MonthStart")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("ScheduledPickUpThisMonth")
+                        .HasColumnType("int");
+
+                    b.HasKey("PickUpTrackingId");
+
+                    b.ToTable("PickUpTrackers");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

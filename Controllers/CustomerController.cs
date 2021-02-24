@@ -105,6 +105,7 @@ namespace TrashCollector.Controllers
                     customerToEdit.City = customer.City;
                     customerToEdit.State = customer.State;
                     customerToEdit.Zipcode = customer.Zipcode;
+                    customerToEdit.WeeklyPickupDay = customer.WeeklyPickupDay;
                     _context.Update(customerToEdit);
                     await _context.SaveChangesAsync();
                 }
