@@ -11,6 +11,8 @@ namespace TrashCollector.Models
     {
         [Key]
         public int PickUpTrackingId { get; set; }
+        public DateTime? MonthStart { get; set; }
+        public DateTime? MonthEnd { get; set; }
         public int ScheduledPickUpThisMonth { get; set; }
 
         [ForeignKey("CustomerID")]

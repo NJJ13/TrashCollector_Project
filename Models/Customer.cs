@@ -23,6 +23,8 @@ namespace TrashCollector.Models
         public double Zipcode { get; set; }
         [Display(Name = "Weekly PickUp Day")]
         public string WeeklyPickupDay { get; set; }
+        [Display(Name ="When would you like to begin the service?")]
+        public DateTime? ServicesStart { get; set; }
         [Display(Name = "Additional PickUp Date")]
         public DateTime? AdditionalPickUp { get; set; }
         [Display(Name = "Suspend Services Start Date")]
