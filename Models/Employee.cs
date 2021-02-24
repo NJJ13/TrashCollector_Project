@@ -12,11 +12,16 @@ namespace TrashCollector.Models
     {
         [Key]
         public int EmployeeID { get; set; }
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
-        public int ZipCode { get; set; }
+        [Display(Name = "Zip Code")]
+        [StringLength(10, MinimumLength =5)]
+        public string ZipCode { get; set; }
         [Display(Name = "Pickup Day")]
         public string PickupDay { get; set; }
+        public ICollection<Customer> Customers { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

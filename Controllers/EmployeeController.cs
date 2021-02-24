@@ -64,6 +64,10 @@ namespace TrashCollector.Controllers
                 employee.IdentityUserId = userId;
                 DateTime dayValue = DateTime.Today;
                 employee.PickupDay = dayValue.ToString("dddd");
+                foreach (Customer customer in _context.Customers)
+                {
+                    employee.Customers.Add(customer);
+                }
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +98,7 @@ namespace TrashCollector.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,FirstName,LastName,ZipCode,IdentityUserId")] Employee employee)
+        public async Task<IActionResult> Edit(int id, Employee employee)
         {
             if (id != employee.EmployeeID)
             {

@@ -20,7 +20,9 @@ namespace TrashCollector.Models
         public string Address { get; set; }
         public string City { get; set; }
         public string State { get; set; }
-        public double Zipcode { get; set; }
+        [Display(Name = "Zip Code")]
+        [StringLength(10, MinimumLength = 5)]
+        public string ZipCode { get; set; }
         [Display(Name = "Weekly PickUp Day")]
         public string WeeklyPickupDay { get; set; }
         [Display(Name ="When would you like to begin the service?")]
