@@ -209,6 +209,17 @@ namespace TrashCollector.Controllers
             return _context.Customers.Any(e => e.CustomerID == id);
         }
 
+        public async void CustomerChargeForPickup(int id)
+        {
+            double pickUpRate;
+            double flatRate = 10.00;
+            pickUpRate = flatRate;
+            Customer customerDuesToUpdate = _context.Customers.Find(id);
+            customerDuesToUpdate.MonthlyDues += pickUpRate;
+            _context.Update(customerDuesToUpdate);
+            await _context.SaveChangesAsync();
+        }
+
 
     }
 }
