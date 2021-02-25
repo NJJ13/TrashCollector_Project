@@ -58,6 +58,21 @@ namespace TrashCollector.Controllers
 
             return View(employee);
         }
+        public async Task<IActionResult> CustomerDetails(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.CustomerID == id).FirstOrDefault();
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
+        }
 
         // GET: Employee/Create
         public IActionResult Create()
