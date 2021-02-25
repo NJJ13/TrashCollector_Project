@@ -35,7 +35,16 @@ namespace TrashCollector.Controllers
             
             return View(customersInArea);
         }
+        public async Task<IActionResult> Filter()
+        {
+            var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(e => e.IdentityUserId == userId).FirstOrDefault();
+            var currentday = DateTime.Today.ToString("dddd");
+            var customersInArea = _context.Customers.Where(c => c.ZipCode == employee.ZipCode && c.WeeklyPickupDay == employee.PickupDay);
 
+            return View(customersInArea);
+        }
         // GET: Employee/Details/5
         public async Task<IActionResult> Details()
         {
@@ -111,9 +120,12 @@ namespace TrashCollector.Controllers
             {
                 try
                 {
-                    Employee employeeToEdit = new 
-                    employee.
-                    _context.Update(employee);
+                    Employee employeeToEdit = _context.Employees.Find(id);
+                    employeeToEdit.FirstName = employee.FirstName;
+                    employeeToEdit.LastName = employee.LastName;
+                    employeeToEdit.PickupDay = employee.PickupDay;
+                    employeeToEdit.ZipCode = employee.ZipCode;
+                    _context.Update(employeeToEdit);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
@@ -127,7 +139,7 @@ namespace TrashCollector.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Filter");
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
             return View(employee);
@@ -166,18 +178,6 @@ namespace TrashCollector.Controllers
         private bool EmployeeExists(int id)
         {
             return _context.Employees.Any(e => e.EmployeeID == id);
-        }
-        public void PopulateMatchingCustomers(Employee employee)
-        {
-            employee.Customers.Clear();
-            foreach (Customer customer in _context.Customers)
-            {
-                if (customer.WeeklyPickupDay == employee.PickupDay && customer.ZipCode == employee.ZipCode)
-                {
-                    employee.Customers.Add(customer);
-                }
-                    
-            }
         }
       
     }

@@ -35,7 +35,6 @@ namespace TrashCollector.Models
         public DateTime? SuspendPickUpEnd { get; set; }
         [Display(Name = "Monthly Dues")]
         public double MonthlyDues { get; set; }
-        [StringLength(10, MinimumLength = 5)]
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }
