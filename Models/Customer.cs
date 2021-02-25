@@ -23,9 +23,9 @@ namespace TrashCollector.Models
         [Display(Name = "Zip Code")]
         [StringLength(10, MinimumLength = 5)]
         public string ZipCode { get; set; }
-        [Display(Name = "Weekly PickUp Day")]
+        [Display(Name = "PickUp Day")]
         public string WeeklyPickupDay { get; set; }
-        [Display(Name ="When would you like to begin the service?")]
+        [Display(Name ="Service Start")]
         public DateTime? ServicesStart { get; set; }
         [Display(Name = "Additional PickUp Date")]
         public DateTime? AdditionalPickUp { get; set; }
@@ -35,6 +35,7 @@ namespace TrashCollector.Models
         public DateTime? SuspendPickUpEnd { get; set; }
         [Display(Name = "Monthly Dues")]
         public double MonthlyDues { get; set; }
+        [StringLength(10, MinimumLength = 5)]
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

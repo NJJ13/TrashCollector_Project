@@ -24,16 +24,22 @@ namespace TrashCollector.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(e => e.IdentityUserId == userId).FirstOrDefault();
+            if(employee == null)
+            {
+                return RedirectToAction("Create");
+            }
+            var currentday = DateTime.Today.ToString("dddd");
+            var customersInArea = _context.Customers.Where(c => c.ZipCode == employee.ZipCode && c.WeeklyPickupDay == currentday);
+            
+            return View(customersInArea);
         }
 
         // GET: Employee/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details()
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
+           
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(e => e.IdentityUserId == userId).SingleOrDefault();
             if (employee == null)
@@ -64,16 +70,12 @@ namespace TrashCollector.Controllers
                 employee.IdentityUserId = userId;
                 DateTime dayValue = DateTime.Today;
                 employee.PickupDay = dayValue.ToString("dddd");
-                foreach (Customer customer in _context.Customers)
-                {
-                    employee.Customers.Add(customer);
-                }
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdentityUserId"] = new SelectList(_context.Users, "Id", "Id", employee.IdentityUserId);
-            return View(employee);
+            return View();
         }
 
         // GET: Employee/Edit/5
@@ -109,6 +111,8 @@ namespace TrashCollector.Controllers
             {
                 try
                 {
+                    Employee employeeToEdit = new 
+                    employee.
                     _context.Update(employee);
                     await _context.SaveChangesAsync();
                 }
@@ -163,5 +167,18 @@ namespace TrashCollector.Controllers
         {
             return _context.Employees.Any(e => e.EmployeeID == id);
         }
+        public void PopulateMatchingCustomers(Employee employee)
+        {
+            employee.Customers.Clear();
+            foreach (Customer customer in _context.Customers)
+            {
+                if (customer.WeeklyPickupDay == employee.PickupDay && customer.ZipCode == employee.ZipCode)
+                {
+                    employee.Customers.Add(customer);
+                }
+                    
+            }
+        }
+      
     }
 }

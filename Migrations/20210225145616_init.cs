@@ -153,37 +153,6 @@ namespace TrashCollector.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Customers",
-                columns: table => new
-                {
-                    CustomerID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    Address = table.Column<string>(nullable: true),
-                    City = table.Column<string>(nullable: true),
-                    State = table.Column<string>(nullable: true),
-                    Zipcode = table.Column<double>(nullable: false),
-                    WeeklyPickupDay = table.Column<string>(nullable: true),
-                    ServicesStart = table.Column<DateTime>(nullable: true),
-                    AdditionalPickUp = table.Column<DateTime>(nullable: true),
-                    SuspendPickUpStart = table.Column<DateTime>(nullable: true),
-                    SuspendPickUpEnd = table.Column<DateTime>(nullable: true),
-                    MonthlyDues = table.Column<double>(nullable: false),
-                    IdentityUserId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Customers", x => x.CustomerID);
-                    table.ForeignKey(
-                        name: "FK_Customers_AspNetUsers_IdentityUserId",
-                        column: x => x.IdentityUserId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Employees",
                 columns: table => new
                 {
@@ -191,7 +160,7 @@ namespace TrashCollector.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    ZipCode = table.Column<int>(nullable: false),
+                    ZipCode = table.Column<string>(maxLength: 10, nullable: true),
                     PickupDay = table.Column<string>(nullable: true),
                     IdentityUserId = table.Column<string>(nullable: true)
                 },
@@ -206,20 +175,60 @@ namespace TrashCollector.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.InsertData(
-                table: "AspNetRoles",
-                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "71969416-aa9e-4770-ae35-00a82ee16b00", "65ef5b41-1a22-4632-a9df-259f0875a1b1", "Admin", "ADMIN" });
+            migrationBuilder.CreateTable(
+                name: "Customers",
+                columns: table => new
+                {
+                    CustomerID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    City = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true),
+                    ZipCode = table.Column<string>(maxLength: 10, nullable: true),
+                    WeeklyPickupDay = table.Column<string>(nullable: true),
+                    ServicesStart = table.Column<DateTime>(nullable: true),
+                    AdditionalPickUp = table.Column<DateTime>(nullable: true),
+                    SuspendPickUpStart = table.Column<DateTime>(nullable: true),
+                    SuspendPickUpEnd = table.Column<DateTime>(nullable: true),
+                    MonthlyDues = table.Column<double>(nullable: false),
+                    FilteredZipCode = table.Column<string>(maxLength: 10, nullable: true),
+                    FilteredPickupDay = table.Column<string>(nullable: true),
+                    IdentityUserId = table.Column<string>(nullable: true),
+                    EmployeeID = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Customers", x => x.CustomerID);
+                    table.ForeignKey(
+                        name: "FK_Customers_Employees_EmployeeID",
+                        column: x => x.EmployeeID,
+                        principalTable: "Employees",
+                        principalColumn: "EmployeeID",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Customers_AspNetUsers_IdentityUserId",
+                        column: x => x.IdentityUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "c8bc7c27-09a9-4518-bf88-4cf8f96163a5", "69a088be-58f0-44c4-9394-5b5a39d19d78", "Employee", "EMPLOYEE" });
+                values: new object[] { "e001b0ca-08a9-4570-84a9-0b2a98939342", "4db8dd57-86dd-4896-a595-0e69b08c40ee", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "7ce164c4-e22f-415c-a183-2548aa1156e4", "5de8e26f-7e5b-4377-b424-18cd8b29c557", "Customer", "CUSTOMER" });
+                values: new object[] { "fe7dc6fb-dab5-483e-9033-951ef3ca7864", "386fdbf9-61f4-41a7-88b1-540be87c701c", "Employee", "EMPLOYEE" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "c65b367d-7f89-4e33-bd87-7acd4887c95c", "319d4fd4-4651-491d-afe9-962eed559425", "Customer", "CUSTOMER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -261,6 +270,11 @@ namespace TrashCollector.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Customers_EmployeeID",
+                table: "Customers",
+                column: "EmployeeID");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Customers_IdentityUserId",
                 table: "Customers",
                 column: "IdentityUserId");
@@ -292,10 +306,10 @@ namespace TrashCollector.Migrations
                 name: "Customers");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "Employees");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

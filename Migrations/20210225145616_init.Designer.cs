@@ -10,7 +10,7 @@ using TrashCollector.Data;
 namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210224190642_init")]
+    [Migration("20210225145616_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,22 +50,22 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "71969416-aa9e-4770-ae35-00a82ee16b00",
-                            ConcurrencyStamp = "65ef5b41-1a22-4632-a9df-259f0875a1b1",
+                            Id = "e001b0ca-08a9-4570-84a9-0b2a98939342",
+                            ConcurrencyStamp = "4db8dd57-86dd-4896-a595-0e69b08c40ee",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "c8bc7c27-09a9-4518-bf88-4cf8f96163a5",
-                            ConcurrencyStamp = "69a088be-58f0-44c4-9394-5b5a39d19d78",
+                            Id = "fe7dc6fb-dab5-483e-9033-951ef3ca7864",
+                            ConcurrencyStamp = "386fdbf9-61f4-41a7-88b1-540be87c701c",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "7ce164c4-e22f-415c-a183-2548aa1156e4",
-                            ConcurrencyStamp = "5de8e26f-7e5b-4377-b424-18cd8b29c557",
+                            Id = "c65b367d-7f89-4e33-bd87-7acd4887c95c",
+                            ConcurrencyStamp = "319d4fd4-4651-491d-afe9-962eed559425",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -256,6 +256,16 @@ namespace TrashCollector.Migrations
                     b.Property<string>("City")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("EmployeeID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("FilteredPickupDay")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FilteredZipCode")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
@@ -283,10 +293,13 @@ namespace TrashCollector.Migrations
                     b.Property<string>("WeeklyPickupDay")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Zipcode")
-                        .HasColumnType("float");
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.HasKey("CustomerID");
+
+                    b.HasIndex("EmployeeID");
 
                     b.HasIndex("IdentityUserId");
 
@@ -312,8 +325,9 @@ namespace TrashCollector.Migrations
                     b.Property<string>("PickupDay")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ZipCode")
-                        .HasColumnType("int");
+                    b.Property<string>("ZipCode")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
 
                     b.HasKey("EmployeeID");
 
@@ -375,6 +389,10 @@ namespace TrashCollector.Migrations
 
             modelBuilder.Entity("TrashCollector.Models.Customer", b =>
                 {
+                    b.HasOne("TrashCollector.Models.Employee", null)
+                        .WithMany("Customers")
+                        .HasForeignKey("EmployeeID");
+
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "IdentityUser")
                         .WithMany()
                         .HasForeignKey("IdentityUserId");

@@ -1,5 +1,4 @@
-﻿@model IEnumerable<TrashCollector.Models.Employee>
-@model IEnumerable<TrashCollector.Models.Customer>
+﻿@model IEnumerable<TrashCollector.Models.Customer>
 
 @{
     ViewData["Title"] = "Index";
@@ -8,16 +7,22 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Details">Change Your Info</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ZipCode)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PickupDay)
+                @Html.DisplayNameFor(model => model.WeeklyPickupDay)
             </th>
             <th></th>
         </tr>
@@ -28,16 +33,18 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.ZipCode)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.PickupDay)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.EmployeeID">Details</a>
+                    @Html.DisplayFor(modelItem => item.WeeklyPickupDay)
                 </td>
             </tr>
-        }
+         }
     </tbody>
 </table>
