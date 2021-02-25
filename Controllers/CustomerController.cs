@@ -30,13 +30,14 @@ namespace TrashCollector.Controllers
             {
                 return RedirectToAction("Create");
             }
+
             return View(applicationDbContext);
         }
 
         // GET: Customer/Details/5
-        public async Task<IActionResult> Details(int id)
+        public async Task<IActionResult> Details(int? id)
         {
-            var customer = _context.Customers.Where(c => c.CustomerID == id);
+            var customer = _context.Customers.Find(id);
             if (customer == null)
             {
                 return NotFound();

@@ -216,7 +216,7 @@ namespace TrashCollector.Controllers
                     }
                 }
                 CustomerChargeForPickup(customerToCharge);
-                customerToCharge.LastCollection = DateTime.Now;
+                ;
             }
             if (customerToCharge.AdditionalPickUp.HasValue)
             {
@@ -236,6 +236,7 @@ namespace TrashCollector.Controllers
             double flatRate = 10.00;
             pickUpRate = flatRate;
             customer.MonthlyDues += pickUpRate;
+            customer.LastCollection = DateTime.Now;
             _context.Update(customer);
         }
         public void DisplayCollectionAlreadyCompleteMEssage()
