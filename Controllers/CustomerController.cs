@@ -24,18 +24,19 @@ namespace TrashCollector.Controllers
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Customers.Include(c => c.IdentityUser);
-            return View(await applicationDbContext.ToListAsync());
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(e => e.IdentityUserId == userId).FirstOrDefault();
+            if (customer == null)
+            {
+                return RedirectToAction("Create");
+            }
+            return View(applicationDbContext);
         }
 
         // GET: Customer/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.IdentityUserId == userId).SingleOrDefault();
+            var customer = _context.Customers.Where(c => c.CustomerID == id);
             if (customer == null)
             {
                 return NotFound();
@@ -209,16 +210,7 @@ namespace TrashCollector.Controllers
             return _context.Customers.Any(e => e.CustomerID == id);
         }
 
-        public async void CustomerChargeForPickup(int id)
-        {
-            double pickUpRate;
-            double flatRate = 10.00;
-            pickUpRate = flatRate;
-            Customer customerDuesToUpdate = _context.Customers.Find(id);
-            customerDuesToUpdate.MonthlyDues += pickUpRate;
-            _context.Update(customerDuesToUpdate);
-            await _context.SaveChangesAsync();
-        }
+
 
 
     }

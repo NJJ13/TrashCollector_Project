@@ -8,6 +8,8 @@
 
 <p>
     <a asp-action="Details">Change Your Info</a>
+
+    <a asp-action="AdditionalServices">Additional Services</a>
 </p>
 <table class="table">
     <thead>
@@ -23,9 +25,6 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.WeeklyPickupDay)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.AdditionalPickUp)
             </th>
             <th></th>
         </tr>
@@ -47,9 +46,6 @@
         <td>
             @Html.DisplayFor(modelItem => item.WeeklyPickupDay)
         </td>
-        <th>
-            @Html.DisplayNameFor(model => model.AdditionalPickUp)
-        </th>
         <td>
             <a asp-action="CustomerDetails" asp-route-id="@item.CustomerID">Customer Details</a>
         </td>

@@ -28,13 +28,18 @@ namespace TrashCollector.Models
         [Display(Name ="Service Start")]
         public DateTime? ServicesStart { get; set; }
         [Display(Name = "Additional PickUp Date")]
+        [DataType(DataType.Date)]
         public DateTime? AdditionalPickUp { get; set; }
         [Display(Name = "Suspend Services Start Date")]
+        [DataType(DataType.Date)]
         public DateTime? SuspendPickUpStart { get; set; }
         [Display(Name = "Suspend Services End Date")]
+        [DataType(DataType.Date)]
         public DateTime? SuspendPickUpEnd { get; set; }
         [Display(Name = "Monthly Dues")]
+        [DataType(DataType.Currency)]
         public double MonthlyDues { get; set; }
+        public DateTime? LastCollection { get; set; }
 
         [ForeignKey("IdentityUser")]
         public string IdentityUserId { get; set; }

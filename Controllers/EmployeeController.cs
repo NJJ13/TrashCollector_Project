@@ -40,8 +40,16 @@ namespace TrashCollector.Controllers
             var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var employee = _context.Employees.Where(e => e.IdentityUserId == userId).FirstOrDefault();
-            var currentday = DateTime.Today.ToString("dddd");
             var customersInArea = _context.Customers.Where(c => c.ZipCode == employee.ZipCode && c.WeeklyPickupDay == employee.PickupDay);
+
+            return View(customersInArea);
+        }
+        public async Task<IActionResult> AdditionalServices()
+        {
+            var applicationDbContext = _context.Employees.Include(e => e.IdentityUser);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var employee = _context.Employees.Where(e => e.IdentityUserId == userId).FirstOrDefault();
+            var customersInArea = _context.Customers.Where(c => c.ZipCode == employee.ZipCode && c.AdditionalPickUp.HasValue);
 
             return View(customersInArea);
         }
@@ -194,6 +202,45 @@ namespace TrashCollector.Controllers
         {
             return _context.Employees.Any(e => e.EmployeeID == id);
         }
-      
+     
+        public async Task<IActionResult> ConfirmPickUp(int id)
+        {
+            Customer customerToCharge = _context.Customers.Find(id);
+            if(customerToCharge.WeeklyPickupDay == DateTime.Today.DayOfWeek.ToString())
+            {
+                if (customerToCharge.LastCollection.HasValue)
+                {
+                    if (customerToCharge.LastCollection.Value.Month == DateTime.Today.Month && customerToCharge.LastCollection.Value.Day == DateTime.Today.Day)
+                    {
+                        return RedirectToAction("Filter");
+                    }
+                }
+                CustomerChargeForPickup(customerToCharge);
+                customerToCharge.LastCollection = DateTime.Now;
+            }
+            if (customerToCharge.AdditionalPickUp.HasValue)
+            {
+                if(customerToCharge.AdditionalPickUp.Value.Month == DateTime.Today.Month && customerToCharge.AdditionalPickUp.Value.Day == DateTime.Today.Day && customerToCharge.AdditionalPickUp.Value.Year == DateTime.Today.Year)
+                {
+                    customerToCharge.AdditionalPickUp = null;
+                    CustomerChargeForPickup(customerToCharge);
+                }
+            }
+            _context.Update(customerToCharge);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Filter");
+        }
+        public void CustomerChargeForPickup(Customer customer)
+        {
+            double pickUpRate;
+            double flatRate = 10.00;
+            pickUpRate = flatRate;
+            customer.MonthlyDues += pickUpRate;
+            _context.Update(customer);
+        }
+        public void DisplayCollectionAlreadyCompleteMEssage()
+        {
+
+        }
     }
 }

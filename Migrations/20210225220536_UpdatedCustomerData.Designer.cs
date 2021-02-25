@@ -10,8 +10,8 @@ using TrashCollector.Data;
 namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210225165214_init")]
-    partial class init
+    [Migration("20210225220536_UpdatedCustomerData")]
+    partial class UpdatedCustomerData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e04d8bdd-b6cc-49e1-9fd2-ec26096448aa",
-                            ConcurrencyStamp = "14d43fa8-78b7-4bf1-9f0e-e4ad316c2a3c",
+                            Id = "d32ab490-7c82-435b-98fd-26ba15ef991c",
+                            ConcurrencyStamp = "a98c600d-5e2e-4738-9dd5-c1f495f1b22a",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "9339f5f7-6c71-4125-91b1-72f62312fc7a",
-                            ConcurrencyStamp = "394201c8-9ecf-404e-ab0a-f705f7706178",
+                            Id = "41f24b2d-08b8-4284-98a0-95a50615cb1d",
+                            ConcurrencyStamp = "cae93b2a-99de-4491-80d1-740e9e55724a",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "2dfc489d-0e1a-4b4c-8c56-1f654ef2d40b",
-                            ConcurrencyStamp = "021416fa-ff53-4847-855c-8c2e9331db18",
+                            Id = "bafe1ed8-d336-4ef8-a402-02571b3d0040",
+                            ConcurrencyStamp = "80204e14-4572-42b6-a9fa-a4421ee6445d",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -261,6 +261,9 @@ namespace TrashCollector.Migrations
 
                     b.Property<string>("IdentityUserId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("LastCollection")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");

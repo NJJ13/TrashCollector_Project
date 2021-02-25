@@ -209,17 +209,17 @@ namespace TrashCollector.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "e04d8bdd-b6cc-49e1-9fd2-ec26096448aa", "14d43fa8-78b7-4bf1-9f0e-e4ad316c2a3c", "Admin", "ADMIN" });
+                values: new object[] { "1236bab1-5ed2-4060-b032-fe8508e1c8f7", "d906515d-c1d5-4daf-a8ba-a2facdf6b7b3", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "9339f5f7-6c71-4125-91b1-72f62312fc7a", "394201c8-9ecf-404e-ab0a-f705f7706178", "Employee", "EMPLOYEE" });
+                values: new object[] { "3dd13296-dd3b-4258-b9e0-8411723e7a76", "83a5d5d6-ce9f-40ff-a0a3-fd1893a2cab8", "Employee", "EMPLOYEE" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "2dfc489d-0e1a-4b4c-8c56-1f654ef2d40b", "021416fa-ff53-4847-855c-8c2e9331db18", "Customer", "CUSTOMER" });
+                values: new object[] { "782932f1-52cd-48a6-93fe-cfd7222eec08", "dc8bebe3-847f-489e-947f-c06f4aff01f5", "Customer", "CUSTOMER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
