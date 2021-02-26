@@ -10,6 +10,7 @@
 <div>
     <h4>Customer</h4>
     <hr />
+
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.FirstName)
@@ -84,6 +85,19 @@
             @Html.DisplayFor(model => model.LastCollection)
         </dd>
     </dl>
+</div>
+<div class="col-md-6">
+    <div id="googleMap" style="height:400px;width:400px;"></div>
+    <script>
+        function myMap() {
+            var myCenter = new google.maps.LatLng(44.500000, -89.500000);
+            var mapProp = { center: myCenter, zoom: 12, scrollwheel: false, draggable: true, mapTypeId: google.maps.MapTypeId.ROADMAP };
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+            var marker = new google.maps.Marker({ position: myCenter });
+            marker.setMap(map);
+        }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=Put_Your_Own_Api_Here8&callback=myMap"></script>
 </div>
 <div>
     <a asp-action="ConfirmPickup" asp-route-id="@Model.CustomerID">Confirm Pickup</a> |

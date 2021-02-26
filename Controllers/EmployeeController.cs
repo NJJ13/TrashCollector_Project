@@ -218,6 +218,10 @@ namespace TrashCollector.Controllers
                 }
                 CustomerChargeForPickup(customerToCharge);
             }
+            if (customerToCharge.WeeklyPickupDay != DateTime.Today.DayOfWeek.ToString() && customerToCharge.AdditionalPickUp.HasValue == false)
+            {
+                return RedirectToAction("CollectionIncomplete");
+            }
             if (customerToCharge.AdditionalPickUp.HasValue)
             {
                 if(customerToCharge.AdditionalPickUp.Value.Month == DateTime.Today.Month && customerToCharge.AdditionalPickUp.Value.Day == DateTime.Today.Day && customerToCharge.AdditionalPickUp.Value.Year == DateTime.Today.Year)
