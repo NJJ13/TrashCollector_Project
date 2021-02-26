@@ -208,15 +208,11 @@ namespace TrashCollector.Controllers
             Customer customerToCharge = _context.Customers.Find(id);
             if(customerToCharge.WeeklyPickupDay == DateTime.Today.DayOfWeek.ToString())
             {
-                if (customerToCharge.LastCollection.HasValue)
+                if (LastCollectionCheck(customerToCharge) == true)
                 {
-                    if (customerToCharge.LastCollection.Value.Month == DateTime.Today.Month && customerToCharge.LastCollection.Value.Day == DateTime.Today.Day)
-                    {
-                        return RedirectToAction("Filter");
-                    }
+                    return await CollectionIncomplete(customerToCharge.CustomerID);
                 }
                 CustomerChargeForPickup(customerToCharge);
-                ;
             }
             if (customerToCharge.AdditionalPickUp.HasValue)
             {
@@ -239,9 +235,33 @@ namespace TrashCollector.Controllers
             customer.LastCollection = DateTime.Now;
             _context.Update(customer);
         }
-        public void DisplayCollectionAlreadyCompleteMEssage()
-        {
 
+        public bool LastCollectionCheck(Customer customer)
+        {
+            bool Pickupcollected = false;
+            if (customer.LastCollection.HasValue)
+            {
+                if (customer.LastCollection.Value.Month == DateTime.Today.Month && customer.LastCollection.Value.Day == DateTime.Today.Day)
+                {
+                    Pickupcollected = true;
+                }
+            }
+            return Pickupcollected;
+        }
+        public async Task<IActionResult> CollectionIncomplete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var customer = _context.Customers.Where(c => c.CustomerID == id).FirstOrDefault();
+            if (customer == null)
+            {
+                return NotFound();
+            }
+
+            return View(customer);
         }
     }
 }
