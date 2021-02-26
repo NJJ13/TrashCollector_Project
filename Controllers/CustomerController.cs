@@ -30,7 +30,10 @@ namespace TrashCollector.Controllers
             {
                 return RedirectToAction("Create");
             }
-
+            else
+            {
+                await Details(customer.CustomerID);
+            }
             return View(applicationDbContext);
         }
 
