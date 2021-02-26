@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TrashCollector.Models.Customer>
+﻿@model TrashCollector.Models.Customer
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +8,7 @@
 <h1>Welcome</h1>
 
 <p>
-    <a asp-action="Create">Set Up Collection Services</a>
+    <a asp-action="Details" asp-route-id="@Model.CustomerID">View your Info</a>
 </p>
 <table class="table">
     @*<thead>

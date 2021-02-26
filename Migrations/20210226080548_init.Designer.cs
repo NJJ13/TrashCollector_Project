@@ -10,8 +10,8 @@ using TrashCollector.Data;
 namespace TrashCollector.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210225220536_UpdatedCustomerData")]
-    partial class UpdatedCustomerData
+    [Migration("20210226080548_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -50,22 +50,22 @@ namespace TrashCollector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "d32ab490-7c82-435b-98fd-26ba15ef991c",
-                            ConcurrencyStamp = "a98c600d-5e2e-4738-9dd5-c1f495f1b22a",
+                            Id = "94ac8440-9f83-4f4e-abc0-b50ad308a091",
+                            ConcurrencyStamp = "f988409b-3e92-46d1-bb21-13b60c81df31",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "41f24b2d-08b8-4284-98a0-95a50615cb1d",
-                            ConcurrencyStamp = "cae93b2a-99de-4491-80d1-740e9e55724a",
+                            Id = "a0d38b48-6c07-4c84-a55d-465633cfe199",
+                            ConcurrencyStamp = "b83679e3-680b-4f38-9108-62af05fca9c3",
                             Name = "Employee",
                             NormalizedName = "EMPLOYEE"
                         },
                         new
                         {
-                            Id = "bafe1ed8-d336-4ef8-a402-02571b3d0040",
-                            ConcurrencyStamp = "80204e14-4572-42b6-a9fa-a4421ee6445d",
+                            Id = "3010aa1d-33c7-49d2-beb7-6d80c8e94271",
+                            ConcurrencyStamp = "d641cc8e-205e-4d01-a169-667e040dff55",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         });
@@ -270,9 +270,6 @@ namespace TrashCollector.Migrations
 
                     b.Property<double>("MonthlyDues")
                         .HasColumnType("float");
-
-                    b.Property<DateTime?>("ServicesStart")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");

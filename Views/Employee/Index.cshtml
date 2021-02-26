@@ -4,11 +4,13 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Index</h1>
+<h1>Customers</h1>
 
 <p>
-    <a asp-action="Details">Change Your Info</a>
+    <a asp-action="Details">Personal Details</a>
+</p>
 
+<p>
     <a asp-action="AdditionalServices">Additional Services</a>
 </p>
 <table class="table">
@@ -33,23 +35,23 @@
         <tr></tr>
         @foreach (var item in Model)
         {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZipCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.WeeklyPickupDay)
-        </td>
-        <td>
-            <a asp-action="CustomerDetails" asp-route-id="@item.CustomerID">Customer Details</a>
-        </td>
-    </tr>
-         }
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WeeklyPickupDay)
+                </td>
+                <td>
+                    <a asp-action="CustomerDetails" asp-route-id="@item.CustomerID">Customer Details</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

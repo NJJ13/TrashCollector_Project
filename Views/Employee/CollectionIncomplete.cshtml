@@ -1,4 +1,4 @@
-﻿@model TrashCollector.Models.Customer
+﻿
 
 @{
     ViewData["Title"] = "CollectionIncomplete";
@@ -8,41 +8,12 @@
 <h1>Collection Incomplete</h1>
 
 <div>
-    <h4>This trash collection could not be completed</h4>
+    <h4>This trash collection could not be completed:</h4>
+    <h6>The custome's account is either in suspension, the pick up is not scheduled for today, or the pick up has already been completed.</h6>
+    <h6>Please review the customer's information</h6>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SuspendPickUpStart)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SuspendPickUpStart)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SuspendPickUpEnd)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SuspendPickUpEnd)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastCollection)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastCollection)
-        </dd>
-    </dl>
+    <div>
+        <a asp-action="Filter">Back to List</a>
+    </div>
 </div>
-<div>
-    <a asp-action="Filter">Back to List</a>
-</div>
+

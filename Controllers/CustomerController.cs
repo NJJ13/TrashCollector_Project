@@ -34,7 +34,7 @@ namespace TrashCollector.Controllers
             {
                 await Details(customer.CustomerID);
             }
-            return View(applicationDbContext);
+            return View(customer);
         }
 
         // GET: Customer/Details/5

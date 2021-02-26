@@ -206,11 +206,15 @@ namespace TrashCollector.Controllers
         public async Task<IActionResult> ConfirmPickUp(int id)
         {
             Customer customerToCharge = _context.Customers.Find(id);
+            if (SuspensionCheck(customerToCharge))
+            {
+                return RedirectToAction("CollectionIncomplete");
+            }
             if(customerToCharge.WeeklyPickupDay == DateTime.Today.DayOfWeek.ToString())
             {
                 if (LastCollectionCheck(customerToCharge) == true)
                 {
-                    return await CollectionIncomplete(customerToCharge.CustomerID);
+                    return RedirectToAction("CollectionIncomplete");
                 }
                 CustomerChargeForPickup(customerToCharge);
             }
@@ -241,27 +245,36 @@ namespace TrashCollector.Controllers
             bool Pickupcollected = false;
             if (customer.LastCollection.HasValue)
             {
-                if (customer.LastCollection.Value.Month == DateTime.Today.Month && customer.LastCollection.Value.Day == DateTime.Today.Day)
+                if (customer.LastCollection.Value.Month == DateTime.Today.Month && customer.LastCollection.Value.Day == DateTime.Today.Day && customer.LastCollection.Value.Year == DateTime.Today.Year)
                 {
                     Pickupcollected = true;
                 }
             }
             return Pickupcollected;
         }
-        public async Task<IActionResult> CollectionIncomplete(int? id)
+        public bool SuspensionCheck(Customer customer)
         {
-            if (id == null)
+            bool AccountSuspended = false;
+            if(customer.SuspendPickUpStart.HasValue)
             {
-                return NotFound();
+                if (customer.SuspendPickUpEnd.HasValue)
+                {
+                    if(customer.SuspendPickUpEnd.Value.Year >= DateTime.Today.Year && customer.SuspendPickUpEnd.Value.Month >= DateTime.Today.Month && customer.SuspendPickUpEnd.Value.Day >= DateTime.Now.Day)
+                    {
+                        AccountSuspended = true;
+                    }
+                }
+                else
+                {
+                    AccountSuspended = true;
+                }
             }
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var customer = _context.Customers.Where(c => c.CustomerID == id).FirstOrDefault();
-            if (customer == null)
-            {
-                return NotFound();
-            }
+            return AccountSuspended;
+        }
+        public async Task<IActionResult> CollectionIncomplete()
+        {
 
-            return View(customer);
+            return View();
         }
     }
 }
