@@ -25,8 +25,6 @@ namespace TrashCollector.Models
         public string ZipCode { get; set; }
         [Display(Name = "PickUp Day")]
         public string WeeklyPickupDay { get; set; }
-        [Display(Name ="Service Start")]
-        public DateTime? ServicesStart { get; set; }
         [Display(Name = "Additional PickUp Date")]
         [DataType(DataType.Date)]
         public DateTime? AdditionalPickUp { get; set; }
