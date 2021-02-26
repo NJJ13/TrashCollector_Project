@@ -19,8 +19,7 @@ namespace TrashCollector.Data
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" },
-                new IdentityRole { Name = "Employee", NormalizedName = "EMPLOYEE" }, new IdentityRole { Name = "Customer", NormalizedName = "CUSTOMER" });
+            builder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Employee", NormalizedName = "EMPLOYEE" }, new IdentityRole { Name = "Customer", NormalizedName = "CUSTOMER" });
         }
     }
 }
